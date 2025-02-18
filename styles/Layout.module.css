@@ -1,0 +1,21 @@
+
+.imgStyle{
+    background: linear-gradient(to right, #6df578, #88f89a);
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.agroLogo{
+    background: url('/assets/logo.png') no-repeat;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+}

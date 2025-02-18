@@ -1,0 +1,46 @@
+.inputGroup{
+    display: flex;
+    border: 1px solid;
+    border-radius: 10px;
+    position: relative;
+}
+
+.input_text {
+    width: 100%;
+    padding: 0.5rem 1rem;  
+    border-radius: 0.5rem;  
+    background-color: #f8fafc;
+    outline: none;
+    border: none;
+    font-size: 1rem; 
+}
+
+.button{
+    width: 100%;
+    background: linear-gradient(to right, #c1f37f, #70df75);
+    border-radius: 0.375rem;
+    padding: 0.45rem;
+    color: #f9fafb;
+    font-size: 1.125rem;
+}
+
+.button:hover{
+    background: linear-gradient(to right, white, #e5e7eb);
+    border: 1px solid #48dd61;
+    color: black;
+}
+
+.button_custom{
+    width: 100%;
+    border: 1px solid;
+    padding: 0.30rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 10px;
+}
+
+.button_custom:hover{
+    background-color: #e5e7eb;
+}
+
