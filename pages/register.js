@@ -4,10 +4,23 @@ import Layout from '@/layout/layout';
 import Link from 'next/link';
 import styles from '../styles/Form.module.css';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useFormik } from 'formik';
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const formik = useFormik({
+    initialValues: {
+      username: '',
+      email: '',
+      password: '',
+      confirmPassword: ''
+    },
+    onSubmit: values => {
+      console.log(values);
+    }
+  });
 
   return (
     <Layout>
@@ -23,7 +36,7 @@ export default function Register() {
         </div>
 
         {/* Form */}
-        <form className='flex flex-col gap-5'>
+        <form className='flex flex-col gap-5' onSubmit={formik.handleSubmit}>
           <div className={styles.inputGroup}>
             <input 
               type='text' 
@@ -33,6 +46,7 @@ export default function Register() {
               className={styles.input_text} 
               autoComplete='username'
               aria-label='Username'
+              {...formik.getFieldProps('username')}
             />
           </div>
           <div className={styles.inputGroup}>
@@ -44,6 +58,7 @@ export default function Register() {
               className={styles.input_text} 
               autoComplete='email'
               aria-label='Email'
+              {...formik.getFieldProps('email')}
             />
           </div>
           <div className={styles.inputGroup}>
@@ -55,6 +70,7 @@ export default function Register() {
               className={styles.input_text} 
               autoComplete='new-password'
               aria-label='Password'
+              {...formik.getFieldProps('password')}
             />
             <span 
               className='icon flex items-center px-4 cursor-pointer'
@@ -72,6 +88,7 @@ export default function Register() {
               className={styles.input_text} 
               autoComplete='new-password'
               aria-label='Confirm Password'
+              {...formik.getFieldProps('confirmPassword')}
             />
             <span 
               className='icon flex items-center px-4 cursor-pointer'

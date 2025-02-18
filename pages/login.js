@@ -15,6 +15,9 @@ export default function Login() {
                 email: '',
                 password:''
         },
+        validate : () =>{
+            
+        },
         onSubmit: onSubmitHandler
     });
 
