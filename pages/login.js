@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { signIn } from 'next-auth/react';
 import { useFormik } from 'formik';
+import login_validate from '@/lib/validate';
 
 export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
@@ -15,9 +16,7 @@ export default function Login() {
                 email: '',
                 password:''
         },
-        validate : () =>{
-            
-        },
+        validate : login_validate,
         onSubmit: onSubmitHandler
     });
 
@@ -42,7 +41,7 @@ export default function Login() {
                  
                 {/* Login Form */}
                 <form className='flex flex-col gap-5' onSubmit={formik.handleSubmit}>
-                    <div className={styles.inputGroup}>
+                     <div className={`${styles.inputGroup} border ${formik.touched.email && formik.errors.email ? 'border-rose-600' : 'border-gray-300'}`}>
                         <input 
                             type='email' 
                             id='email' 
@@ -54,7 +53,9 @@ export default function Login() {
                             {...formik.getFieldProps('email')}
                         />
                     </div>
-                    <div className={styles.inputGroup}>
+
+                    {/* {formik.errors.email && formik.touched.email?<span className='text-rose-500'>{formik.errors.email}</span>:<></>} */}
+                    <div className={`${styles.inputGroup} ${formik.touched.password && formik.errors.password ? 'border-rose-600' : ''} `}>
                         <input 
                             type={showPassword ? 'text' : 'password'} 
                             id='password' 
@@ -62,7 +63,7 @@ export default function Login() {
                             placeholder='Password' 
                             className={styles.input_text} 
                             autoComplete='current-password'
-                            aria-label='Password'
+                            // aria-label='Password'
                             {...formik.getFieldProps('password')}
                         />
                         <span 
@@ -72,6 +73,8 @@ export default function Login() {
                             {showPassword ? <FaEyeSlash size={25}/> : <FaEye size={25}/>}
                         </span>
                     </div>
+                    {/* {formik.errors.password && formik.errors.password ?<span className='text-rose-500'>{formik.errors.password}</span>:<></>} */}
+
 
                     {/* Login Button */}
                     <div className='input-button'>

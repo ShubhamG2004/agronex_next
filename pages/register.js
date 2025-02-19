@@ -5,7 +5,7 @@ import Link from 'next/link';
 import styles from '../styles/Form.module.css';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useFormik } from 'formik';
-
+import { register_validate } from '../lib/validate';
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -17,6 +17,7 @@ export default function Register() {
       password: '',
       confirmPassword: ''
     },
+    validate:register_validate,
     onSubmit: values => {
       console.log(values);
     }
@@ -49,6 +50,7 @@ export default function Register() {
               {...formik.getFieldProps('username')}
             />
           </div>
+          {formik.errors.username && formik.touched.username?<span className='text-rose-500'>{formik.errors.username}</span>:<></>}
           <div className={styles.inputGroup}>
             <input 
               type='email' 
@@ -61,6 +63,7 @@ export default function Register() {
               {...formik.getFieldProps('email')}
             />
           </div>
+          {formik.errors.email && formik.touched.email?<span className='text-rose-500'>{formik.errors.email}</span>:<></>}
           <div className={styles.inputGroup}>
             <input 
               type={showPassword ? 'text' : 'password'} 
@@ -79,6 +82,7 @@ export default function Register() {
               {showPassword ? <FaEyeSlash size={25}/> : <FaEye size={25}/>}
             </span>
           </div>
+          {formik.errors.password && formik.touched.password?<span className='text-rose-500'>{formik.errors.password}</span>:<></>}
           <div className={styles.inputGroup}>
             <input 
               type={showConfirmPassword ? 'text' : 'password'} 
@@ -97,7 +101,7 @@ export default function Register() {
               {showConfirmPassword ? <FaEyeSlash size={25}/> : <FaEye size={25}/>}
             </span>
           </div>
-
+          {formik.errors.confirmPassword && formik.touched.confirmPassword?<span className='text-rose-500'>{formik.errors.confirmPassword}</span>:<></>}
           <div className='input-button'>
             <button type="submit" className={styles.button}>Register</button>
           </div>
