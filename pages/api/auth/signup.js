@@ -19,7 +19,7 @@ export default async function handler(req, res) {
 
         console.log("Searching for email:", email);
 
-        // Check if user already exists 
+        // Check if user already exists    
         const userExists = await Users.findOne({ email });
 
         console.log("User found:", userExists);
