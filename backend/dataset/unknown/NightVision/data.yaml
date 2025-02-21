@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 1
+names: ['Nightvision']
+
+roboflow:
+  workspace: sheep-h8rkr
+  project: nnightvision
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/sheep-h8rkr/nnightvision/dataset/1

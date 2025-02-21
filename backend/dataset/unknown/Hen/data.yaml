@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 1
+names: ['hen']
+
+roboflow:
+  workspace: dataset-0yd6z
+  project: tanvi-u1ex9
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/dataset-0yd6z/tanvi-u1ex9/dataset/1

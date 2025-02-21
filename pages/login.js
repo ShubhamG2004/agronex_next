@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Head from 'next/head';
 import Layout from '@/layout/layout';
 import Link from 'next/link';
 import styles from '../styles/Form.module.css';
@@ -8,9 +7,11 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { signIn } from 'next-auth/react';
 import { useFormik } from 'formik';
 import login_validate from '@/lib/validate';
+import { useRouter } from 'next/router';
 
 export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
+    const router = useRouter();
     const formik = useFormik({
         initialValues: {
                 email: '',
@@ -21,7 +22,13 @@ export default function Login() {
     });
 
     async function onSubmitHandler(values) {
-        console.log(values);
+        const status = await signIn('credentials', {
+            redirect: false,
+            email: values.email,
+            password: values.password,
+            callbackUrl: '/'
+        });
+        if(status.ok)router.push(status.url)
     }
 
     // Google Sign-In Handler
@@ -80,7 +87,7 @@ export default function Login() {
                     <div className='input-button'>
                         <button type="submit" className={styles.button}>Login</button>
                     </div>
-
+                    <p>------ or continue with the ------</p>
                     {/* Google Sign-In */}
                     <div className='input-button'>
                         <button type="button" onClick={handleGoogleSignIn} className={styles.button_custom}>

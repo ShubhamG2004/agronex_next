@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 1
+names: ['rabbit']
+
+roboflow:
+  workspace: dataset-yvmpz
+  project: karan-hffrs
+  version: 3
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/dataset-yvmpz/karan-hffrs/dataset/3
