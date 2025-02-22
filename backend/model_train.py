@@ -1,70 +1,76 @@
-import os
 import tensorflow as tf
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout, Input
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
+import json
+import os
 
 # Define dataset path
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DATASET_PATH = os.path.join(BASE_DIR, "dataset")
+DATASET_PATH = "dataset"  # Change this to your dataset directory
 
-# Image augmentation
+# Image size and batch size
+IMG_SIZE = (128, 128)
+BATCH_SIZE = 32
+
+# Data Augmentation and Preprocessing
 datagen = ImageDataGenerator(
-    rescale=1.0 / 255,
-    validation_split=0.2  # 80% training, 20% validation
+    rescale=1.0 / 255.0,
+    validation_split=0.2  
 )
 
 # Load dataset
 train_data = datagen.flow_from_directory(
     DATASET_PATH,
-    target_size=(128, 128),
-    batch_size=32,
+    target_size=IMG_SIZE,
+    batch_size=BATCH_SIZE,
     class_mode="categorical",
     subset="training"
 )
 
 val_data = datagen.flow_from_directory(
     DATASET_PATH,
-    target_size=(128, 128),
-    batch_size=32,
+    target_size=IMG_SIZE,
+    batch_size=BATCH_SIZE,
     class_mode="categorical",
     subset="validation"
 )
 
-# Get number of classes
-num_classes = train_data.num_classes
+# Get class indices and save them
+class_indices = train_data.class_indices
+class_labels = {v: k for k, v in class_indices.items()}
 
-# CNN Model
-model = Sequential([
-    Input(shape=(128, 128, 3)),  # Correct input shape
-    Conv2D(32, (3, 3), activation='relu'),
-    MaxPooling2D(2, 2),
-    
-    Conv2D(64, (3, 3), activation='relu'),
-    MaxPooling2D(2, 2),
-    
-    Conv2D(128, (3, 3), activation='relu'),
-    MaxPooling2D(2, 2),
-    
-    Flatten(),
-    Dense(128, activation='relu'),
-    Dropout(0.5),
-    Dense(num_classes, activation='softmax')  # Dynamic number of classes
+# Save class indices as JSON
+os.makedirs("model", exist_ok=True)
+with open("model/class_indices.json", "w") as f:
+    json.dump(class_labels, f)
+
+# Define CNN Model
+model = tf.keras.models.Sequential([
+    tf.keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=(128, 128, 3)),
+    tf.keras.layers.MaxPooling2D(2, 2),
+    tf.keras.layers.Conv2D(64, (3, 3), activation='relu'),
+    tf.keras.layers.MaxPooling2D(2, 2),
+    tf.keras.layers.Conv2D(128, (3, 3), activation='relu'),
+    tf.keras.layers.MaxPooling2D(2, 2),
+    tf.keras.layers.Flatten(),
+    tf.keras.layers.Dense(128, activation='relu'),
+    tf.keras.layers.Dropout(0.5),
+    tf.keras.layers.Dense(len(class_labels), activation='softmax')  
 ])
 
-# Compile model
-model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-
-# Train model
-history = model.fit(
-    train_data,
-    validation_data=val_data,
-    epochs=15  # Increase if needed
+# Compile the model
+model.compile(
+    optimizer="adam",
+    loss="categorical_crossentropy",
+    metrics=["accuracy"]
 )
 
-# Save model
-MODEL_PATH = os.path.join(BASE_DIR, "model", "plant_disease_model.h5")
-os.makedirs(os.path.dirname(MODEL_PATH), exist_ok=True)
-model.save(MODEL_PATH)
+# Train the model
+model.fit(
+    train_data,
+    validation_data=val_data,
+    epochs=6 # Change based on your requirements
+)
 
-print(f"Model saved at: {MODEL_PATH}")
+# Save trained model
+model.save("model/plant_disease_model.h5")
+
+print("Model training complete and saved!")
