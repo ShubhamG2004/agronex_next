@@ -150,6 +150,111 @@ disease_info = {
         "solution": "Continue regular watering and fertilization.",
         "care": "Prune excess foliage for better airflow.",
         "prevention": "Monitor for early disease symptoms."
+    },
+    "Pepper,_bell___Bacterial_spot": {
+        "cause": "Caused by the bacterium Xanthomonas campestris, spread through water splashes.",
+        "problem": "Dark, water-soaked lesions on leaves and fruit, reducing yield.",
+        "solution": "Use copper-based sprays and remove infected plants.",
+        "care": "Avoid overhead watering and maintain good plant spacing.",
+        "prevention": "Rotate crops and use resistant pepper varieties."
+    },
+    "Pepper,_bell___healthy": {
+        "cause": "No disease detected.",
+        "problem": "The bell pepper plant is in good health.",
+        "solution": "Continue regular watering and fertilization.",
+        "care": "Monitor for early signs of disease and pests.",
+        "prevention": "Ensure proper spacing and good soil drainage."
+    },
+    "Potato___Early_blight": {
+        "cause": "Caused by the fungus Alternaria solani, thriving in warm, wet conditions.",
+        "problem": "Dark concentric spots on older leaves, causing leaf drop.",
+        "solution": "Apply fungicides like chlorothalonil or copper-based sprays.",
+        "care": "Ensure good soil drainage and remove infected leaves.",
+        "prevention": "Practice crop rotation and avoid overhead irrigation."
+    },
+    "Potato___Late_blight": {
+        "cause": "Caused by the oomycete Phytophthora infestans, spreading in wet conditions.",
+        "problem": "Irregular water-soaked lesions on leaves, leading to plant collapse.",
+        "solution": "Apply fungicides like metalaxyl and remove infected plants.",
+        "care": "Avoid excessive moisture and improve field ventilation.",
+        "prevention": "Use certified disease-free potato seeds and rotate crops."
+    },
+    "Potato___healthy": {
+        "cause": "No disease detected.",
+        "problem": "The potato plant is in good health.",
+        "solution": "Continue regular watering and fertilization.",
+        "care": "Monitor for early signs of disease and pests.",
+        "prevention": "Ensure proper soil drainage and use disease-resistant varieties."
+    },
+    "Raspberry___healthy": {
+        "cause": "No disease detected.",
+        "problem": "The raspberry plant is in good health.",
+        "solution": "Maintain proper pruning and watering.",
+        "care": "Monitor plants for any disease symptoms.",
+        "prevention": "Ensure good soil drainage and airflow."
+    },
+    "Soybean___healthy": {
+        "cause": "No disease detected.",
+        "problem": "The soybean plant is in good health.",
+        "solution": "Continue with optimal farming practices.",
+        "care": "Monitor for pests and nutrient deficiencies.",
+        "prevention": "Rotate crops and maintain soil health."
+    },
+    "Squash___Powdery_mildew": {
+        "cause": "Caused by Podosphaera xanthii fungus, spreading in dry conditions.",
+        "problem": "White, powdery spots appear on leaves, reducing plant growth.",
+        "solution": "Apply sulfur or potassium bicarbonate-based fungicides.",
+        "care": "Water plants at the base to reduce moisture on leaves.",
+        "prevention": "Use resistant squash varieties and ensure proper plant spacing."
+    },
+    "Strawberry___Leaf_scorch": {
+        "cause": "Caused by the fungus Diplocarpon earlianum, thriving in wet conditions.",
+        "problem": "Brown spots with purple margins appear on leaves, leading to defoliation.",
+        "solution": "Use fungicides like chlorothalonil and remove infected leaves.",
+        "care": "Improve air circulation by spacing plants properly.",
+        "prevention": "Avoid overhead irrigation and ensure good drainage."
+    },
+    "Strawberry___healthy": {
+        "cause": "No disease detected.",
+        "problem": "The strawberry plant is in good health.",
+        "solution": "Maintain regular watering and fertilization.",
+        "care": "Monitor for pests and diseases regularly.",
+        "prevention": "Ensure proper soil drainage and good airflow."
+    },
+    "Tomato___Bacterial_spot": {
+        "cause": "Caused by Xanthomonas bacteria, spreading through water splashes.",
+        "problem": "Small, water-soaked lesions appear on leaves and fruit.",
+        "solution": "Use copper-based sprays and remove infected plants.",
+        "care": "Avoid overhead watering and rotate crops annually.",
+        "prevention": "Plant disease-resistant tomato varieties."
+    },
+    "Tomato___Early_blight": {
+        "cause": "Caused by the fungus Alternaria solani, thriving in warm, wet conditions.",
+        "problem": "Dark concentric spots on lower leaves, causing wilting.",
+        "solution": "Apply fungicides like chlorothalonil and practice crop rotation.",
+        "care": "Remove infected leaves and ensure proper spacing.",
+        "prevention": "Use resistant tomato varieties and provide good soil drainage."
+    },
+    "Tomato___Leaf_Mold": {
+        "cause": "Caused by the fungus Passalora fulva, spreading in humid conditions.",
+        "problem": "Yellow spots on leaves that turn brown, leading to defoliation.",
+        "solution": "Apply copper-based fungicides and prune lower leaves.",
+        "care": "Ensure proper ventilation and avoid excessive humidity.",
+        "prevention": "Space plants properly and use resistant tomato varieties."
+    },
+    "Tomato___healthy": {
+        "cause": "No disease detected.",
+        "problem": "The tomato plant is in good health.",
+        "solution": "Continue regular watering and fertilization.",
+        "care": "Prune excess foliage for better airflow.",
+        "prevention": "Monitor for early disease symptoms."
+    },
+    "unknown": {
+        "cause": "Disease not recognized.",
+        "problem": "The uploaded image does not match any known disease.",
+        "solution": "Ensure clear image capture and try again.",
+        "care": "Check plant health manually for any visible symptoms.",
+        "prevention": "Use proper disease diagnosis tools for accurate identification."
     }
 }
 
