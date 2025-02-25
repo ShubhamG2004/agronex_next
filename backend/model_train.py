@@ -4,7 +4,7 @@ import json
 import os
 
 # Define dataset path
-DATASET_PATH = "dataset"  # Change this to your dataset directory
+DATASET_PATH = "dataset"
 
 # Image size and batch size
 IMG_SIZE = (128, 128)

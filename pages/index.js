@@ -25,14 +25,12 @@ export default function Home() {
       className={`${geistSans.variable} ${geistMono.variable} grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
     >
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <h1 className="text-4xl font-bold">Next.js + Tailwind CSS</h1>
+        <ImageUploader/>
         {session ? (
           <Authuser session={session} handleSignOut={handleSignOut} />
         ) : (
           <Guest />
         )}
-        {/* Image Upload Component */}
-        <ImageUploader />
       </main>
     </div>
   );
@@ -44,10 +42,8 @@ function Guest() {
     <main className="container mx-auto text-center py-20">
       <h1 className="text-3xl font-bold underline">Welcome Guest</h1>
       <div className="flex justify-center">
-        <Link href="/login">
-          <a className="mt-5 px-10 py-1 rounded-sm bg-indigo-500 text-white">
-            Sign in
-          </a>
+        <Link href="/login" className="mt-5 px-10 py-1 rounded-sm bg-indigo-500 text-white">
+          Sign in
         </Link>
       </div>
     </main>
@@ -74,10 +70,8 @@ function Authuser({ session, handleSignOut }) {
       </div>
 
       <div className="flex justify-center">
-        <Link href="/profile">
-          <a className="mt-5 px-10 py-1 rounded-sm bg-indigo-500 text-white">
-            Profile
-          </a>
+        <Link href="/profile" className="mt-5 px-10 py-1 rounded-sm bg-indigo-500 text-white">
+          Profile
         </Link>
       </div>
     </main>
