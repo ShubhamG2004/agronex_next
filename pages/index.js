@@ -1,7 +1,9 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
 import { getSession, useSession, signOut } from "next-auth/react";
-import ImageUploader from "../components/ImageUploader"; // Import ImageUploader Component
+import { useRouter } from "next/router";
+import Navbar from "../components/Navbar";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,23 +17,41 @@ const geistMono = Geist_Mono({
 
 export default function Home() {
   const { data: session } = useSession();
+  const router = useRouter();
 
   function handleSignOut() {
     signOut();
   }
 
+  function handleSearchClick() {
+    router.push("/image-uploader");
+  }
+
   return (
-    <div
-      className={`${geistSans.variable} ${geistMono.variable} grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
-    >
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <ImageUploader/>
+    <div>
+      
+      <main className="flex flex-col gap-0 row-start-2 items-center sm:items-start w-full">
+        <Navbar />
+        <div
+          className="w-full h-96 bg-cover bg-center flex items-center justify-center"
+          style={{ backgroundImage: "url('/assets/background.png')" }}
+        >
+          <input
+            type="text"
+            placeholder="Search..."
+            className="w-80 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            onClick={handleSearchClick}
+            readOnly
+          />
+        </div>
+
         {session ? (
           <Authuser session={session} handleSignOut={handleSignOut} />
         ) : (
           <Guest />
         )}
       </main>
+
     </div>
   );
 }
