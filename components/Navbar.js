@@ -38,7 +38,7 @@ export default function Navbar() {
               href="/profile"
               className="block text-white hover:underline py-2 md:py-0"
             >
-              Profile
+              Blog
             </Link>
           </li>
           <li>
@@ -54,7 +54,7 @@ export default function Navbar() {
               href="/login"
               className="block text-white hover:underline py-2 md:py-0"
             >
-              Login
+              Profile
             </Link>
           </li>
         </ul>

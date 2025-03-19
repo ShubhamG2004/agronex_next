@@ -32,17 +32,35 @@ export default function Home() {
       
       <main className="flex flex-col gap-0 row-start-2 items-center sm:items-start w-full">
         <Navbar />
-        <div
-          className="w-full h-96 bg-cover bg-center flex items-center justify-center"
-          style={{ backgroundImage: "url('/assets/background.png')" }}
-        >
-          <input
-            type="text"
-            placeholder="Search..."
-            className="w-80 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            onClick={handleSearchClick}
-            readOnly
-          />
+        <div className="w-full h-[500px] relative">
+          {/* Background Image with Black Overlay */}
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: "url('/assets/background.png')", backgroundSize: "cover" }}
+          >
+            <div className="absolute inset-0 bg-black opacity-50"></div>
+          </div>
+
+          {/* Left-Side Content (Outside Overlay) */}
+          <div className="absolute left-[70px] top-1/2 transform -translate-y-1/2 flex flex-col gap-2">
+            {/* First Line */}
+            <h1 className="text-yellow-500 text-3xl font-bold">
+              <span className="text-4xl">Detect</span> the <span className="text-4xl">Disease</span> of the Plant
+            </h1>
+
+            {/* Second Line */}
+            <h1 className="text-yellow-500 text-3xl font-bold">and Explore It</h1>
+
+            {/* Third Line - Buttons */}
+            <div className="flex gap-4 mt-4">
+              <button className="px-6 py-2 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700">
+                Diagnosis
+              </button>
+              <button className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700">
+                Create Blog
+              </button>
+            </div>
+          </div>
         </div>
 
         {session ? (
