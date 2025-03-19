@@ -44,12 +44,14 @@ export default function Home() {
           {/* Left-Side Content (Outside Overlay) */}
           <div className="absolute left-[70px] top-1/2 transform -translate-y-1/2 flex flex-col gap-2">
             {/* First Line */}
-            <h1 className="text-yellow-500 text-3xl font-bold">
-              <span className="text-4xl">Detect</span> the <span className="text-4xl">Disease</span> of the Plant
+            <h1 className="text-yellow-500 text-5xl font-bold">
+              <span className="text-6xl">Detect</span> the <span className="text-6xl">Disease</span> 
             </h1>
 
             {/* Second Line */}
-            <h1 className="text-yellow-500 text-3xl font-bold">and Explore It</h1>
+            <h1 className="text-yellow-500 text-5xl font-bold">
+              of the <span className="text-6xl">Plant</span> and <span className="text-6xl">Explore</span> IT
+            </h1>
 
             {/* Third Line - Buttons */}
             <div className="flex gap-4 mt-4">
