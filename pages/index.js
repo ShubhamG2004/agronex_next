@@ -32,7 +32,7 @@ export default function Home() {
       
       <main className="flex flex-col gap-0 row-start-2 items-center sm:items-start w-full">
         <Navbar />
-        <div className="w-full h-[500px] relative">
+        <div className="w-full h-[550px] relative">
           {/* Background Image with Black Overlay */}
           <div
             className="absolute inset-0 bg-cover bg-center"
@@ -53,6 +53,13 @@ export default function Home() {
               of the <span className="text-6xl">Plant</span> and <span className="text-6xl">Explore</span> IT
             </h1>
 
+            {/* Harness the Power of Agronex to Accurately Detect Plant Diseases and Gain In-Depth Knowledge from Expert Blogs! */}
+            <h1 className="text-yellow-500 text-3xl font-bold">
+              Harness the Power of Agronex to Accurately Detect Plant Diseases
+            </h1>
+            <h1 className="text-yellow-500 text-3xl font-bold">
+             and Gain In-Depth Knowledge from Expert Blogs!
+            </h1>
             {/* Third Line - Buttons */}
             <div className="flex gap-4 mt-4">
               <button className="px-6 py-2 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700">
