@@ -64,7 +64,7 @@ export default function Home() {
               and Gain In-Depth Knowledge from Expert Blogs!
               </h1>
             </div>
-             
+ 
             {/* Third Line - Buttons */}
             <div className="flex gap-4 mt-4">
               <button className="px-6 py-2 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700">
