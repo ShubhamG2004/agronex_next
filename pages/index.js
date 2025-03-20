@@ -42,24 +42,29 @@ export default function Home() {
           </div>
 
           {/* Left-Side Content (Outside Overlay) */}
-          <div className="absolute left-[70px] top-1/2 transform -translate-y-1/2 flex flex-col gap-2">
-            {/* First Line */}
-            <h1 className="text-yellow-500 text-5xl font-bold">
-              <span className="text-6xl">Detect</span> the <span className="text-6xl">Disease</span> 
-            </h1>
+          <div className="absolute left-[70px] top-1/2 transform -translate-y-1/2 flex flex-col gap-3">
 
-            {/* Second Line */}
-            <h1 className="text-yellow-500 text-5xl font-bold">
-              of the <span className="text-6xl">Plant</span> and <span className="text-6xl">Explore</span> IT
-            </h1>
+            <div className=" flex flex-col gap- 2">
+              {/* First Line */}
+              <h1 className="text-yellow-500 text-5xl font-bold">
+                <span className="text-6xl">Detect</span> the <span className="text-6xl">Disease</span> 
+              </h1>
 
-            {/* Harness the Power of Agronex to Accurately Detect Plant Diseases and Gain In-Depth Knowledge from Expert Blogs! */}
-            <h1 className="text-yellow-500 text-3xl font-bold">
-              Harness the Power of Agronex to Accurately Detect Plant Diseases
-            </h1>
-            <h1 className="text-yellow-500 text-3xl font-bold">
-             and Gain In-Depth Knowledge from Expert Blogs!
-            </h1>
+              {/* Second Line */}
+              <h1 className="text-yellow-500 text-5xl font-bold">
+                of the <span className="text-6xl">Plant</span> and <span className="text-6xl">Explore</span> IT
+              </h1>
+            </div>
+            
+            <div className=" flex flex-col gap- -3">
+              <h1 className="text-yellow-500 text-2xl font-bold">
+                Harness the Power of Agronex to Accurately Detect Plant Diseases
+              </h1>
+              <h1 className="text-yellow-500 text-2xl font-bold">
+              and Gain In-Depth Knowledge from Expert Blogs!
+              </h1>
+            </div>
+             
             {/* Third Line - Buttons */}
             <div className="flex gap-4 mt-4">
               <button className="px-6 py-2 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700">
