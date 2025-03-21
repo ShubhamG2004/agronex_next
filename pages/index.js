@@ -3,6 +3,8 @@ import Link from "next/link";
 import { getSession, useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import Navbar from "../components/Navbar";
+import Blogcom from "../components/Blogcom";
+import MiddlePage from "@/components/MiddlePage";
 
 
 const geistSans = Geist({
@@ -32,7 +34,7 @@ export default function Home() {
       
       <main className="flex flex-col gap-0 row-start-2 items-center sm:items-start w-full">
         <Navbar />
-        <div className="w-full h-[550px] relative">
+        <div className="w-full h-[640px] relative">
           {/* Background Image with Black Overlay */}
           <div
             className="absolute inset-0 bg-cover bg-center"
@@ -75,6 +77,14 @@ export default function Home() {
               </button>
             </div>
           </div>
+        </div>
+
+        <div>
+          <Blogcom />
+        </div>
+
+        <div>
+          <MiddlePage />
         </div>
 
         {session ? (

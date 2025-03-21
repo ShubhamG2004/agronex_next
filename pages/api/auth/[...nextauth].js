@@ -37,20 +37,25 @@ export default NextAuth({
             },
         }),
     ],
+
+    session: {
+        strategy: "jwt", // Using JWT-based session
+        maxAge: 365 * 24 * 60 * 60, // 1-year session duration
+        updateAge: 24 * 60 * 60, // Refresh session token every 24 hours
+    },
+
     callbacks: {
         async signIn({ user, account }) {
             await connectMongo();
 
             if (account.provider === 'google' || account.provider === 'github') {
-                
                 const existingUser = await Users.findOne({ email: user.email });
 
                 if (!existingUser) {
-                  
                     const newUser = new Users({
                         name: user.name,
                         email: user.email,
-                        image: user.image, 
+                        image: user.image,
                         provider: account.provider,
                     });
                     await newUser.save();
@@ -59,19 +64,26 @@ export default NextAuth({
             return true;
         },
 
+        async jwt({ token, user }) {
+            if (user) {
+                token.id = user.id;
+            }
+            return token;
+        },
+
         async session({ session, token }) {
             if (session.user) {
-                // Fetch user ID from MongoDB
-                const dbUser = await Users.findOne({ email: session.user.email });
-                if (dbUser) {
-                    session.user.id = dbUser._id; 
-                }
+                session.user.id = token.id;
             }
             return session;
         },
     },
+
     secret: process.env.NEXTAUTH_SECRET,
+
     pages: {
         signIn: '/login', 
     },
+
+    debug: process.env.NODE_ENV === 'development', // Enable debugging in development mode
 });
