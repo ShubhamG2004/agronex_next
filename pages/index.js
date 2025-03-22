@@ -6,6 +6,8 @@ import Navbar from "../components/Navbar";
 import Blogcom from "../components/Blogcom";
 import MiddlePage from "@/components/MiddlePage";
 
+// Import ImageUploader only if used directly in this file
+// import ImageUploader from "../components/ImageUploader"; 
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,15 +27,12 @@ export default function Home() {
     signOut();
   }
 
-  function handleSearchClick() {
-    router.push("/image-uploader");
-  }
-
   return (
     <div>
-      
       <main className="flex flex-col gap-0 row-start-2 items-center sm:items-start w-full">
         <Navbar />
+
+        {/* Hero Section */}
         <div className="w-full h-[640px] relative">
           {/* Background Image with Black Overlay */}
           <div
@@ -45,55 +44,61 @@ export default function Home() {
 
           {/* Left-Side Content (Outside Overlay) */}
           <div className="absolute left-[70px] top-1/2 transform -translate-y-1/2 flex flex-col gap-3">
-
-            <div className=" flex flex-col gap- 2">
-              {/* First Line */}
+            {/* Title */}
+            <div className="flex flex-col gap-3">
               <h1 className="text-yellow-500 text-5xl font-bold">
-                <span className="text-6xl">Detect</span> the <span className="text-6xl">Disease</span> 
+                <span className="text-6xl">Detect</span> the <span className="text-6xl">Disease</span>
               </h1>
-
-              {/* Second Line */}
               <h1 className="text-yellow-500 text-5xl font-bold">
                 of the <span className="text-6xl">Plant</span> and <span className="text-6xl">Explore</span> IT
               </h1>
             </div>
-            
-            <div className=" flex flex-col gap- -3">
+
+            {/* Subtitle */}
+            <div className="flex flex-col gap-3">
               <h1 className="text-yellow-500 text-2xl font-bold">
                 Harness the Power of Agronex to Accurately Detect Plant Diseases
               </h1>
               <h1 className="text-yellow-500 text-2xl font-bold">
-              and Gain In-Depth Knowledge from Expert Blogs!
+                and Gain In-Depth Knowledge from Expert Blogs!
               </h1>
             </div>
- 
-            {/* Third Line - Buttons */}
+
+            {/* Buttons */}
             <div className="flex gap-4 mt-4">
-              <button className="px-6 py-2 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700">
+              <button
+                onClick={() => router.push("/image-uploader")}
+                className="px-6 py-2 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700"
+              >
                 Diagnosis
               </button>
-              <button className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700">
+
+              <button
+                className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700"
+              >
                 Create Blog
               </button>
             </div>
           </div>
         </div>
 
+        {/* Blog Section */}
         <div>
           <Blogcom />
         </div>
 
+        {/* Middle Page Section */}
         <div>
           <MiddlePage />
         </div>
 
+        {/* User Authentication */}
         {session ? (
           <Authuser session={session} handleSignOut={handleSignOut} />
         ) : (
           <Guest />
         )}
       </main>
-
     </div>
   );
 }
@@ -122,16 +127,14 @@ function Authuser({ session, handleSignOut }) {
         <h5>{session.user.email}</h5>
       </div>
 
-      <div className="flex justify-center">
+      <div className="flex justify-center gap-4">
         <button
           onClick={handleSignOut}
           className="mt-5 px-10 py-1 rounded-sm bg-indigo-500 text-white"
         >
           Sign Out
         </button>
-      </div>
 
-      <div className="flex justify-center">
         <Link href="/profile" className="mt-5 px-10 py-1 rounded-sm bg-indigo-500 text-white">
           Profile
         </Link>
@@ -140,7 +143,7 @@ function Authuser({ session, handleSignOut }) {
   );
 }
 
-// Fixing getServerSideProps
+// Server-Side Authentication Handling
 export async function getServerSideProps(context) {
   const session = await getSession(context);
 
