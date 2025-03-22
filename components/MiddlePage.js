@@ -44,19 +44,23 @@ export default function MiddlePage() {
         </div>
       </div>
 
-      {/* Right Section - Horizontal Image Slider */}
-      <div className="relative w-full md:w-1/2 h-96 overflow-hidden">
+      {/* Right Section - Smaller Horizontal Image Slider */}
+      <div className="relative w-full md:w-1/2 h-64 overflow-hidden">
         <motion.div
           className="h-full flex"
           animate={{ translateX: `-${scrollIndex * 100}%` }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
         >
           {images.map((image, index) => (
-            <div key={index} className="relative w-full h-96 flex-shrink-0 flex flex-col items-center">
-              <div className="absolute top-0 w-full bg-black bg-opacity-50 text-white text-center py-2 rounded-t-lg">
+            <div key={index} className="relative w-full h-64 flex-shrink-0 flex flex-col items-center">
+              <div className="absolute top-0 w-[80%] bg-black bg-opacity-50 text-white text-center py-2 rounded-t-lg">
                 {image.label}
               </div>
-              <img src={image.src} alt={image.label} className="w-full h-96 object-cover rounded-lg" />
+              <img 
+                src={image.src} 
+                alt={image.label} 
+                className="w-[80%] h-70 object-cover rounded-lg" 
+              />
             </div>
           ))}
         </motion.div>
