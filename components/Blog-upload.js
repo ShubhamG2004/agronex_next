@@ -44,9 +44,8 @@ export default function BlogEditor() {
   };
 
   return (
-    
-    <div className="max-w-5xl mx-auto p-8 bg-gray-900 text-white rounded-lg shadow-lg">
-      <h1 className="text-4xl font-bold text-yellow-400 text-center mb-6">Write a Blog</h1>
+    <div className="max-w-5xl mx-auto p-8 bg-white text-black rounded-lg shadow-lg border border-gray-300">
+      <h1 className="text-4xl font-bold text-gray-800 text-center mb-6">Write a Blog</h1>
 
       {/* Image Upload Section (Appears First) */}
       <div className="w-full mb-6">
@@ -54,15 +53,15 @@ export default function BlogEditor() {
           <motion.img
             src={preview}
             alt="Preview"
-            className="w-full h-64 object-cover rounded-lg mb-4"
+            className="w-full h-64 object-cover rounded-lg mb-4 border border-gray-300"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3 }}
           />
         ) : (
-          <label className="w-full flex flex-col items-center justify-center border-2 border-dashed border-gray-500 p-6 rounded-lg cursor-pointer hover:bg-gray-800 transition">
-            <Plus size={50} className="text-gray-400" />
-            <span className="text-gray-400 mt-2">Click to upload image</span>
+          <label className="w-full flex flex-col items-center justify-center border-2 border-dashed border-gray-400 p-6 rounded-lg cursor-pointer hover:bg-gray-100 transition">
+            <Plus size={50} className="text-gray-500" />
+            <span className="text-gray-500 mt-2">Click to upload image</span>
             <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
           </label>
         )}
@@ -72,7 +71,7 @@ export default function BlogEditor() {
       <input
         type="text"
         placeholder="Enter Blog Title"
-        className="w-full p-3 bg-gray-800 border border-gray-600 rounded-lg mb-4 text-lg"
+        className="w-full p-3 bg-gray-100 border border-gray-400 rounded-lg mb-4 text-lg"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
@@ -80,7 +79,7 @@ export default function BlogEditor() {
       {/* Description Input */}
       <textarea
         placeholder="Enter Short Description (Optional)"
-        className="w-full p-3 bg-gray-800 border border-gray-600 rounded-lg mb-4 text-lg"
+        className="w-full p-3 bg-gray-100 border border-gray-400 rounded-lg mb-4 text-lg"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
@@ -88,17 +87,17 @@ export default function BlogEditor() {
       {/* Content Input */}
       <textarea
         placeholder="Write your blog content here..."
-        className="w-full p-3 bg-gray-800 border border-gray-600 rounded-lg h-48 mb-4 text-lg"
+        className="w-full p-3 bg-gray-100 border border-gray-400 rounded-lg h-48 mb-4 text-lg"
         value={content}
         onChange={(e) => setContent(e.target.value)}
       />
 
       {/* Schedule Date */}
       <div className="mb-4">
-        <label className="block text-sm font-semibold mb-2">Schedule Post (Optional)</label>
+        <label className="block text-sm font-semibold mb-2 text-gray-700">Schedule Post (Optional)</label>
         <input
           type="datetime-local"
-          className="w-full p-3 bg-gray-800 border border-gray-600 rounded-lg text-lg"
+          className="w-full p-3 bg-gray-100 border border-gray-400 rounded-lg text-lg"
           value={scheduleDate}
           onChange={(e) => setScheduleDate(e.target.value)}
         />
@@ -108,7 +107,7 @@ export default function BlogEditor() {
       <div className="flex justify-between mt-6">
         <motion.button
           whileHover={{ scale: 1.05 }}
-          className="w-1/2 px-6 py-3 bg-yellow-500 text-black font-bold rounded-lg mr-2"
+          className="w-1/2 px-6 py-3 bg-gray-600 text-white font-bold rounded-lg mr-2 hover:bg-gray-700"
           onClick={() => {
             setStatus("draft");
             handleSubmit();
@@ -119,7 +118,7 @@ export default function BlogEditor() {
 
         <motion.button
           whileHover={{ scale: 1.05 }}
-          className="w-1/2 px-6 py-3 bg-green-500 text-white font-bold rounded-lg ml-2"
+          className="w-1/2 px-6 py-3 bg-blue-500 text-white font-bold rounded-lg ml-2 hover:bg-blue-600"
           onClick={() => {
             setStatus("published");
             handleSubmit();
