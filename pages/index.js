@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import Navbar from "../components/Navbar";
 import Blogcom from "../components/Blogcom";
 import MiddlePage from "@/components/MiddlePage";
+import BlogUploder from "@/components/Blog-upload";
 
 // Import ImageUploader only if used directly in this file
 // import ImageUploader from "../components/ImageUploader"; 
@@ -74,6 +75,7 @@ export default function Home() {
               </button>
 
               <button
+                onClick={() => router.push("/Blog-uploder")}
                 className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700"
               >
                 Create Blog
