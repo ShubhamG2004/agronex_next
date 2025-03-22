@@ -85,5 +85,5 @@ export default NextAuth({
         signIn: '/login', 
     },
 
-    debug: process.env.NODE_ENV === 'development', // Enable debugging in development mode
+    debug: process.env.NODE_ENV === 'development', 
 });
