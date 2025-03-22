@@ -6,7 +6,8 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="w-full bg-indigo-600 p-5 shadow-md">
+    <nav className="w-full bg-indigo-500 p-5 shadow-md">
+      
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo on the Left */}
         <h1 className="text-white text-xl font-bold">AgroNex</h1>

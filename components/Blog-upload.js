@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Plus } from "lucide-react"; // Icon for the + button
+import { Plus, Eye } from "lucide-react"; // Icon for preview button
 
 export default function BlogEditor() {
   const [title, setTitle] = useState("");
@@ -12,6 +12,7 @@ export default function BlogEditor() {
   const [preview, setPreview] = useState(null);
   const [scheduleDate, setScheduleDate] = useState("");
   const [status, setStatus] = useState("draft");
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false); // Preview Modal State
 
   // Handle Image Upload
   const handleImageUpload = (e) => {
@@ -47,7 +48,7 @@ export default function BlogEditor() {
     <div className="max-w-5xl mx-auto p-8 bg-white text-black rounded-lg shadow-lg border border-gray-300">
       <h1 className="text-4xl font-bold text-gray-800 text-center mb-6">Write a Blog</h1>
 
-      {/* Image Upload Section (Appears First) */}
+      {/* Image Upload Section */}
       <div className="w-full mb-6">
         {preview ? (
           <motion.img
@@ -105,9 +106,19 @@ export default function BlogEditor() {
 
       {/* Buttons */}
       <div className="flex justify-between mt-6">
+        {/* Preview Button */}
         <motion.button
           whileHover={{ scale: 1.05 }}
-          className="w-1/2 px-6 py-3 bg-gray-600 text-white font-bold rounded-lg mr-2 hover:bg-gray-700"
+          className="w-1/3 px-6 py-3 bg-blue-500 text-white font-bold rounded-lg mr-2 hover:bg-blue-600 flex items-center justify-center"
+          onClick={() => setIsPreviewOpen(true)}
+        >
+          <Eye className="mr-2" /> Preview
+        </motion.button>
+
+        {/* Save as Draft Button */}
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          className="w-1/3 px-6 py-3 bg-gray-600 text-white font-bold rounded-lg mr-2 hover:bg-gray-700"
           onClick={() => {
             setStatus("draft");
             handleSubmit();
@@ -116,9 +127,10 @@ export default function BlogEditor() {
           Save as Draft
         </motion.button>
 
+        {/* Publish Button */}
         <motion.button
           whileHover={{ scale: 1.05 }}
-          className="w-1/2 px-6 py-3 bg-blue-500 text-white font-bold rounded-lg ml-2 hover:bg-blue-600"
+          className="w-1/3 px-6 py-3 bg-green-500 text-white font-bold rounded-lg ml-2 hover:bg-green-600"
           onClick={() => {
             setStatus("published");
             handleSubmit();
@@ -127,6 +139,30 @@ export default function BlogEditor() {
           Publish Now
         </motion.button>
       </div>
+
+      {/* Preview Modal */}
+      {isPreviewOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-3xl w-full">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">{title || "Blog Title"}</h2>
+            {preview && (
+              <img src={preview} alt="Blog Preview" className="w-full h-64 object-cover rounded-lg mb-4 border border-gray-300" />
+            )}
+            <p className="text-lg text-gray-600 mb-4">{description || "Blog Description"}</p>
+            <p className="text-gray-700">{content || "Your blog content will appear here..."}</p>
+            
+            <div className="mt-4 flex justify-end">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                className="px-6 py-2 bg-red-500 text-white font-bold rounded-lg hover:bg-red-600"
+                onClick={() => setIsPreviewOpen(false)}
+              >
+                Close
+              </motion.button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
