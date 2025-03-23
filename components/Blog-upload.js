@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Plus, Eye } from "lucide-react"; // Icon for preview button
+import { Plus, Eye } from "lucide-react";
 
 export default function BlogEditor() {
   const [title, setTitle] = useState("");
@@ -12,14 +12,14 @@ export default function BlogEditor() {
   const [preview, setPreview] = useState(null);
   const [scheduleDate, setScheduleDate] = useState("");
   const [status, setStatus] = useState("draft");
-  const [isPreviewOpen, setIsPreviewOpen] = useState(false); // Preview Modal State
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false); 
 
   // Handle Image Upload
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
       setImage(file);
-      setPreview(URL.createObjectURL(file)); // Show preview instantly
+      setPreview(URL.createObjectURL(file)); 
     }
   };
 
