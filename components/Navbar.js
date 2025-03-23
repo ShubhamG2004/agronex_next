@@ -39,7 +39,7 @@ export default function Navbar() {
               href="/profile"
               className="block text-white hover:underline py-2 md:py-0"
             >
-              Blog
+              Blogs
             </Link>
           </li>
           <li>
