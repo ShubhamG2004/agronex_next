@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
-import ImageUploader from "../pages/image-uploader";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,7 +36,7 @@ export default function Navbar() {
           </li>
           <li>
             <Link
-              href="/profile"
+              href="/DisplayBlogPage"
               className="block text-white hover:underline py-2 md:py-0"
             >
               Blogs
@@ -45,7 +44,7 @@ export default function Navbar() {
           </li>
           <li>
             <Link
-              href="/ImageUploader"
+              href="/image-uploader"
               className="block text-white hover:underline py-2 md:py-0"
             >
               Upload

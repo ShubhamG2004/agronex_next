@@ -2,7 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
 import { getSession, useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
-import Navbar from "../components/Navbar";
+import Navbar from "./Navbar";
 import Blogcom from "../components/Blogcom";
 import MiddlePage from "@/components/MiddlePage";
 import BlogUploder from "@/components/Blog-upload";
