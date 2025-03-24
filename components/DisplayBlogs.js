@@ -1,50 +1,48 @@
 import { useEffect, useState } from "react";
 
 const DisplayBlogs = () => {
-  const [blogs, setBlogs] = useState([]); // Initialize as empty array
-  const [loading, setLoading] = useState(true); // Loading state
-  const [error, setError] = useState(null); // Error handling
+  const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
-    fetch("/api/getBlogs")
-      .then(res => res.json())
-      .then(data => {
-        setBlogs(data.blogs || []); // Ensure `blogs` is always an array
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error("Error fetching blogs:", err);
-        setError("Failed to load blogs.");
-        setLoading(false);
-      });
+    const fetchBlogs = async () => {
+      try {
+        const response = await fetch("/api/getBlogs");
+        const data = await response.json();
+        setBlogs(data.blogs);
+      } catch (error) {
+        console.error("Error fetching blogs:", error);
+      }
+    };
+
+    fetchBlogs();
   }, []);
 
   return (
-    <div className="container">
-      <h2>📝 Latest Blogs</h2>
-
-      {loading && <p>Loading blogs...</p>}
-      {error && <p className="error">{error}</p>}
+    <div className="max-w-5xl mx-auto p-6">
+      <h2 className="text-3xl font-bold text-green-600 mb-6 text-center">📝 Latest Blogs</h2>
       
-      {!loading && blogs.length === 0 && <p>No blogs available.</p>}
-
-      {!loading &&
-        blogs.map(blog => (
-          <div key={blog._id} className="blog-card">
-            <h3>{blog.title}</h3>
-            <p>{blog.description}</p>
-            {blog.image && <img src={blog.image} alt="Blog" className="blog-image" />}
-            <p>📅 {new Date(blog.scheduleDate).toLocaleDateString()}</p>
-          </div>
-        ))
-      }
-
-      <style jsx>{`
-        .container { text-align: center; }
-        .blog-card { border: 1px solid #ddd; padding: 10px; margin: 10px; border-radius: 5px; }
-        .blog-image { width: 100%; max-width: 400px; border-radius: 5px; }
-        .error { color: red; }
-      `}</style>
+      {blogs.length === 0 ? (
+        <p className="text-center text-gray-500">No blogs available.</p>
+      ) : (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {blogs.map((blog) => (
+            <div key={blog._id} className="bg-white p-5 rounded-lg shadow-lg hover:shadow-xl transition">
+              {blog.imageUrl && (
+                <img
+                  src={blog.imageUrl}
+                  alt="Blog Image"
+                  className="w-full h-40 object-cover rounded-md mb-4"
+                />
+              )}
+              <h3 className="text-xl font-semibold mb-2">{blog.title}</h3>
+              <p className="text-gray-600">{blog.description}</p>
+              <button className="mt-3 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">
+                Read More
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

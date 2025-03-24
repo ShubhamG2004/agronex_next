@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function BlogUploader() {
+export default function BlogUpload() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [content, setContent] = useState("");
@@ -8,19 +8,21 @@ export default function BlogUploader() {
   const [status, setStatus] = useState("draft");
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [showPreview, setShowPreview] = useState(false); // State to control preview modal
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setImage(file);
+  function handleImageChange(event) {
+    const file = event.target.files[0];
+    if (file) {
+      setImage(file);
+      setPreview(URL.createObjectURL(file)); // Show image preview
+    }
+  }
 
-    // Image preview
-    const reader = new FileReader();
-    reader.onloadend = () => setPreview(reader.result);
-    if (file) reader.readAsDataURL(file);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  async function handleUpload(event) {
+    event.preventDefault();
+    if (!image) return setMessage("❌ Please select an image");
 
     const formData = new FormData();
     formData.append("title", title);
@@ -28,74 +30,251 @@ export default function BlogUploader() {
     formData.append("content", content);
     formData.append("scheduleDate", scheduleDate);
     formData.append("status", status);
-    if (image) formData.append("image", image);
+    formData.append("image", image);
 
-    const response = await fetch("/api/uploadBlog", {
-      method: "POST",
-      body: formData, // FormData allows file uploads
-    });
+    setLoading(true);
+    setMessage("");
 
-    const data = await response.json();
-    alert(data.message);
-  };
+    try {
+      const response = await fetch("/api/uploadBlog", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setMessage("✅ Blog uploaded successfully!");
+      } else {
+        setMessage("❌ Upload failed: " + data.error);
+      }
+    } catch (error) {
+      console.error("❌ Error:", error);
+      setMessage("❌ Something went wrong");
+    }
+
+    setLoading(false);
+  }
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-lg">
-      <h2 className="text-3xl font-bold mb-4 text-center">Upload a Blog</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          type="text"
-          placeholder="Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="w-full p-2 border rounded"
-          required
-        />
-        <textarea
-          placeholder="Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          className="w-full p-2 border rounded"
-        />
-        <textarea
-          placeholder="Content"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          className="w-full p-2 border rounded"
-          required
-        />
-        <input
-          type="date"
-          value={scheduleDate}
-          onChange={(e) => setScheduleDate(e.target.value)}
-          className="w-full p-2 border rounded"
-        />
-        <select
-          value={status}
-          onChange={(e) => setStatus(e.target.value)}
-          className="w-full p-2 border rounded"
-        >
-          <option value="draft">Draft</option>
-          <option value="published">Published</option>
-        </select>
+    <>
+      {/* Header Section */}
+      <div
+        style={{
+          backgroundColor: "#28a745",
+          color: "white",
+          textAlign: "center",
+          padding: "15px",
+          fontSize: "24px",
+          fontWeight: "bold",
+          borderRadius: "8px 8px 0 0",
+          margin: "auto",
+          maxWidth: "1200px",
+        }}
+      >
+        Write a Blog
+      </div>
 
-        {/* Image Upload */}
-        <label className="block w-full p-4 border-dashed border-2 text-center cursor-pointer">
-          <input type="file" className="hidden" accept="image/*" onChange={handleImageChange} />
-          <span className="text-gray-500">Click to select an image</span>
-        </label>
-
-        {/* Image Preview */}
-        {preview && (
-          <div className="mt-4">
-            <img src={preview} alt="Preview" className="w-full h-40 object-cover rounded" />
+      {/* Blog Form */}
+      <form
+        onSubmit={handleUpload}
+        style={{
+          maxWidth: "2000px",
+          margin: "0 auto",
+          padding: "40px",
+          display: "flex",
+          gap: "40px",
+          borderRadius: "0 0 16px 16px",
+          background: "#fff",
+          boxShadow: "0px 6px 30px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        {/* Left Section */}
+        <div style={{ flex: "1", display: "flex", flexDirection: "column", alignItems: "center", gap: "20px" }}>
+          {/* Image Upload */}
+          <div
+            style={{
+              width: "380px",
+              height: "320px",
+              border: "2px dashed #ccc",
+              borderRadius: "16px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              cursor: "pointer",
+              backgroundColor: "#f9f9f9",
+            }}
+            onClick={() => document.getElementById("imageUpload").click()}
+          >
+            {preview ? (
+              <img
+                src={preview}
+                alt="Preview"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  borderRadius: "16px",
+                }}
+              />
+            ) : (
+              <span style={{ fontSize: "50px", fontWeight: "bold", color: "#555" }}>+</span>
+            )}
           </div>
-        )}
+          <input id="imageUpload" type="file" onChange={handleImageChange} style={{ display: "none" }} required />
 
-        <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">
-          Upload Blog
-        </button>
+          {/* Title */}
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Enter Blog Title"
+            required
+            style={{
+              width: "100%",
+              padding: "12px",
+              border: "1px solid #ccc",
+              borderRadius: "8px",
+              fontSize: "16px",
+              outline: "none",
+            }}
+          />
+
+          {/* Schedule Date */}
+          <input
+            type="date"
+            value={scheduleDate}
+            onChange={(e) => setScheduleDate(e.target.value)}
+            required
+            style={{
+              width: "100%",
+              padding: "12px",
+              border: "1px solid #ccc",
+              borderRadius: "8px",
+              fontSize: "16px",
+              outline: "none",
+            }}
+          />
+
+          {/* Buttons */}
+          <div style={{ display: "flex", gap: "12px", width: "100%" }}>
+            <button
+              type="button"
+              style={{
+                flex: "1",
+                padding: "12px",
+                backgroundColor: "#6c757d",
+                color: "#fff",
+                border: "none",
+                borderRadius: "10px",
+                cursor: "pointer",
+                fontSize: "16px",
+                fontWeight: "bold",
+              }}
+              onClick={() => setStatus("draft")}
+            >
+              Draft
+            </button>
+            <button
+              type="button"
+              style={{
+                flex: "1",
+                padding: "12px",
+                backgroundColor: "#17a2b8",
+                color: "#fff",
+                border: "none",
+                borderRadius: "10px",
+                cursor: "pointer",
+                fontSize: "16px",
+                fontWeight: "bold",
+              }}
+              onClick={() => setShowPreview(true)} // Show preview modal
+            >
+              Preview
+            </button>
+            <button
+              type="submit"
+              style={{
+                flex: "2",
+                padding: "12px",
+                backgroundColor: "#28a745",
+                color: "#fff",
+                border: "none",
+                borderRadius: "10px",
+                cursor: "pointer",
+                fontSize: "16px",
+                fontWeight: "bold",
+              }}
+            >
+              Publish
+            </button>
+          </div>
+        </div>
+
+        {/* Right Section */}
+        <div style={{ flex: "3", display: "flex", flexDirection: "column", gap: "20px" }}>
+          {/* Description */}
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+            placeholder="Enter Description"
+            style={{
+              padding: "12px",
+              border: "1px solid #ccc",
+              borderRadius: "8px",
+              fontSize: "16px",
+              outline: "none",
+              resize: "vertical",
+              minHeight: "120px",
+            }}
+          />
+
+          {/* Content */}
+          <textarea
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            required
+            placeholder="Enter Content"
+            style={{
+              padding: "14px",
+              border: "1px solid #ccc",
+              borderRadius: "8px",
+              fontSize: "16px",
+              outline: "none",
+              resize: "vertical",
+              minHeight: "400px",
+            }}
+          />
+        </div>
       </form>
-    </div>
+
+      {/* Preview Modal */}
+      {showPreview && (
+        <div
+          style={{
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            background: "#fff",
+            padding: "30px",
+            borderRadius: "12px",
+            boxShadow: "0px 6px 30px rgba(0,0,0,0.2)",
+            width: "600px",
+            maxHeight: "80vh",
+            overflowY: "auto",
+          }}
+        >
+          <h2>{title}</h2>
+          {preview && <img src={preview} alt="Preview" style={{ width: "100%", borderRadius: "10px" }} />}
+          <p><strong>Schedule Date:</strong> {scheduleDate}</p>
+          <p>{description}</p>
+          <p>{content}</p>
+          <button onClick={() => setShowPreview(false)} style={{ marginTop: "20px", padding: "10px", cursor: "pointer" }}>
+            Close
+          </button>
+        </div>
+      )}
+    </>
   );
 }
