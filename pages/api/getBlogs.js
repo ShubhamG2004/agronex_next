@@ -1,22 +1,35 @@
 import connectMongo from "@/database/conn";
 import Blog from "@/model/Blog";
-import { Users } from "@/model/Schema";
+import Profile from "@/model/Profile"; // Ensure Profile model is used
 
 export default async function handler(req, res) {
-  if (req.method !== "GET") {
-    return res.status(405).json({ error: "Method not allowed" });
+  await connectMongo(); // Connect to MongoDB
+
+  if (!Blog) {
+    console.error("Blog model is undefined");
+    return res.status(500).json({ message: "Blog model is undefined" });
   }
 
-  try {
-    await connectMongo();
-    
-    const blogs = await Blog.find({})
-      .populate("userId", "name profileImage") // Fetch uploader details
-      .sort({ createdAt: -1 });
+  if (req.method === "GET") {
+    try {
+      console.log("Fetching blogs...");
 
-    res.status(200).json({ blogs });
-  } catch (error) {
-    console.error("❌ Error fetching blogs:", error);
-    res.status(500).json({ error: "Failed to fetch blogs." });
+      const blogs = await Blog.find({})
+        .populate("userId", "fullName image") // Fetch user details from Profile
+        .exec();
+
+      console.log("Fetched Blogs:", blogs);
+
+      if (!blogs || blogs.length === 0) {
+        return res.status(404).json({ message: "No blogs found" });
+      }
+
+      return res.status(200).json({ blogs });
+    } catch (error) {
+      console.error("Error fetching blogs:", error);
+      return res.status(500).json({ message: "Internal Server Error", error: error.message });
+    }
   }
+
+  res.status(405).json({ message: "Method not allowed" });
 }

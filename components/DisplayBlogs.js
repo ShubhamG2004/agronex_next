@@ -8,7 +8,11 @@ const DisplayBlogs = () => {
     const fetchBlogs = async () => {
       try {
         const response = await fetch("/api/getBlogs");
+        if (!response.ok) throw new Error("Failed to fetch blogs");
+
         const data = await response.json();
+        if (!data.blogs) throw new Error("No blogs data found");
+
         setBlogs(data.blogs);
       } catch (error) {
         console.error("Error fetching blogs:", error);
@@ -39,16 +43,16 @@ const DisplayBlogs = () => {
           <h2 className="text-3xl font-bold mb-4">{selectedBlog.title}</h2>
           <p className="text-gray-700 whitespace-pre-line">{selectedBlog.content}</p>
 
-          {selectedBlog.user && (
+          {selectedBlog.userId && (
             <div className="absolute bottom-4 right-4 flex items-center gap-2 bg-white p-2 rounded-lg shadow-md">
-              {selectedBlog.user.profileImage && (
+              {selectedBlog.userId.image && (
                 <img
-                  src={selectedBlog.user.profileImage}
-                  alt={selectedBlog.user.name}
+                  src={selectedBlog.userId.image}
+                  alt={selectedBlog.userId.fullName}
                   className="w-8 h-8 rounded-full"
                 />
               )}
-              <span className="text-gray-700 text-sm font-semibold">{selectedBlog.user.name}</span>
+              <span className="text-gray-700 text-sm font-semibold">{selectedBlog.userId.fullName}</span>
             </div>
           )}
         </div>
@@ -78,16 +82,16 @@ const DisplayBlogs = () => {
                     Read More
                   </button>
 
-                  {blog.user && (
+                  {blog.userId && (
                     <div className="absolute bottom-2 right-2 flex items-center gap-2 bg-white p-2 rounded-lg shadow-md">
-                      {blog.user.profileImage && (
+                      {blog.userId.image && (
                         <img
-                          src={blog.user.profileImage}
-                          alt={blog.user.name}
+                          src={blog.userId.image}
+                          alt={blog.userId.fullName}
                           className="w-6 h-6 rounded-full"
                         />
                       )}
-                      <span className="text-gray-700 text-xs font-semibold">{blog.user.name}</span>
+                      <span className="text-gray-700 text-xs font-semibold">{blog.userId.fullName}</span>
                     </div>
                   )}
                 </div>
