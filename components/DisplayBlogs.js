@@ -22,7 +22,7 @@ const DisplayBlogs = () => {
     <div className="max-w-5xl mx-auto p-6">
       {selectedBlog ? (
         /** Full Blog View */
-        <div className="bg-white p-6 rounded-lg shadow-lg">
+        <div className="bg-white p-6 rounded-lg shadow-lg relative">
           <button
             onClick={() => setSelectedBlog(null)}
             className="mb-4 text-blue-500 hover:underline"
@@ -38,6 +38,19 @@ const DisplayBlogs = () => {
           )}
           <h2 className="text-3xl font-bold mb-4">{selectedBlog.title}</h2>
           <p className="text-gray-700 whitespace-pre-line">{selectedBlog.content}</p>
+
+          {selectedBlog.user && (
+            <div className="absolute bottom-4 right-4 flex items-center gap-2 bg-white p-2 rounded-lg shadow-md">
+              {selectedBlog.user.profileImage && (
+                <img
+                  src={selectedBlog.user.profileImage}
+                  alt={selectedBlog.user.name}
+                  className="w-8 h-8 rounded-full"
+                />
+              )}
+              <span className="text-gray-700 text-sm font-semibold">{selectedBlog.user.name}</span>
+            </div>
+          )}
         </div>
       ) : (
         /** Blog List View */
@@ -48,7 +61,7 @@ const DisplayBlogs = () => {
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {blogs.map((blog) => (
-                <div key={blog._id} className="bg-white p-5 rounded-lg shadow-lg hover:shadow-xl transition">
+                <div key={blog._id} className="bg-white p-5 rounded-lg shadow-lg hover:shadow-xl transition relative">
                   {blog.imageUrl && (
                     <img
                       src={blog.imageUrl}
@@ -64,6 +77,19 @@ const DisplayBlogs = () => {
                   >
                     Read More
                   </button>
+
+                  {blog.user && (
+                    <div className="absolute bottom-2 right-2 flex items-center gap-2 bg-white p-2 rounded-lg shadow-md">
+                      {blog.user.profileImage && (
+                        <img
+                          src={blog.user.profileImage}
+                          alt={blog.user.name}
+                          className="w-6 h-6 rounded-full"
+                        />
+                      )}
+                      <span className="text-gray-700 text-xs font-semibold">{blog.user.name}</span>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>

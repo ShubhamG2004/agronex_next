@@ -35,7 +35,7 @@ export default function Navbar() {
             </Link>
           </li>
           <li>
-            <Link href="/blogs" className="block text-white hover:underline py-2 md:py-0">
+            <Link href="/DisplayBlogPage" className="block text-white hover:underline py-2 md:py-0">
               Blogs
             </Link>
           </li>
@@ -46,7 +46,7 @@ export default function Navbar() {
           </li>
           <li>
             {!isLoggedIn ? (
-              <Link href="/ProfilePage" className="block text-white hover:underline py-2 md:py-0">
+              <Link href="/profile" className="block text-white hover:underline py-2 md:py-0">
                 Profile
               </Link>
             ) : (

@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useSession } from "next-auth/react";
 
 export default function BlogUpload() {
+  const { data: session } = useSession(); // Get the logged-in user session
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [content, setContent] = useState("");
@@ -10,21 +12,26 @@ export default function BlogUpload() {
   const [preview, setPreview] = useState(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const [showPreview, setShowPreview] = useState(false); // State to control preview modal
 
   function handleImageChange(event) {
     const file = event.target.files[0];
     if (file) {
       setImage(file);
-      setPreview(URL.createObjectURL(file)); // Show image preview
+      setPreview(URL.createObjectURL(file));
     }
   }
 
   async function handleUpload(event) {
     event.preventDefault();
+
+    if (!session || !session.user?.email) {
+      return setMessage("❌ Please log in to upload a blog");
+    }
+
     if (!image) return setMessage("❌ Please select an image");
 
     const formData = new FormData();
+    formData.append("email", session.user.email); // Send the email of logged-in user
     formData.append("title", title);
     formData.append("description", description);
     formData.append("content", content);
@@ -45,19 +52,17 @@ export default function BlogUpload() {
       if (response.ok) {
         setMessage("✅ Blog uploaded successfully!");
       } else {
-        setMessage("❌ Upload failed: " + data.error);
+        setMessage("❌ Upload failed: " + (data.error || "Unknown error"));
       }
     } catch (error) {
-      console.error("❌ Error:", error);
       setMessage("❌ Something went wrong");
     }
-
     setLoading(false);
   }
 
+
   return (
     <>
-      {/* Header Section */}
       <div
         style={{
           backgroundColor: "#28a745",
@@ -74,7 +79,6 @@ export default function BlogUpload() {
         Write a Blog
       </div>
 
-      {/* Blog Form */}
       <form
         onSubmit={handleUpload}
         style={{
@@ -88,9 +92,7 @@ export default function BlogUpload() {
           boxShadow: "0px 6px 30px rgba(0, 0, 0, 0.1)",
         }}
       >
-        {/* Left Section */}
         <div style={{ flex: "1", display: "flex", flexDirection: "column", alignItems: "center", gap: "20px" }}>
-          {/* Image Upload */}
           <div
             style={{
               width: "380px",
@@ -122,7 +124,6 @@ export default function BlogUpload() {
           </div>
           <input id="imageUpload" type="file" onChange={handleImageChange} style={{ display: "none" }} required />
 
-          {/* Title */}
           <input
             type="text"
             value={title}
@@ -139,7 +140,6 @@ export default function BlogUpload() {
             }}
           />
 
-          {/* Schedule Date */}
           <input
             type="date"
             value={scheduleDate}
@@ -155,7 +155,6 @@ export default function BlogUpload() {
             }}
           />
 
-          {/* Buttons */}
           <div style={{ display: "flex", gap: "12px", width: "100%" }}>
             <button
               type="button"
@@ -187,7 +186,7 @@ export default function BlogUpload() {
                 fontSize: "16px",
                 fontWeight: "bold",
               }}
-              onClick={() => setShowPreview(true)} // Show preview modal
+              onClick={() => setShowPreview(true)}
             >
               Preview
             </button>
@@ -204,15 +203,14 @@ export default function BlogUpload() {
                 fontSize: "16px",
                 fontWeight: "bold",
               }}
+              disabled={loading}
             >
-              Publish
+              {loading ? "Uploading..." : "Publish"}
             </button>
           </div>
         </div>
 
-        {/* Right Section */}
         <div style={{ flex: "3", display: "flex", flexDirection: "column", gap: "20px" }}>
-          {/* Description */}
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
@@ -229,7 +227,6 @@ export default function BlogUpload() {
             }}
           />
 
-          {/* Content */}
           <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
@@ -248,33 +245,7 @@ export default function BlogUpload() {
         </div>
       </form>
 
-      {/* Preview Modal */}
-      {showPreview && (
-        <div
-          style={{
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            background: "#fff",
-            padding: "30px",
-            borderRadius: "12px",
-            boxShadow: "0px 6px 30px rgba(0,0,0,0.2)",
-            width: "600px",
-            maxHeight: "80vh",
-            overflowY: "auto",
-          }}
-        >
-          <h2>{title}</h2>
-          {preview && <img src={preview} alt="Preview" style={{ width: "100%", borderRadius: "10px" }} />}
-          <p><strong>Schedule Date:</strong> {scheduleDate}</p>
-          <p>{description}</p>
-          <p>{content}</p>
-          <button onClick={() => setShowPreview(false)} style={{ marginTop: "20px", padding: "10px", cursor: "pointer" }}>
-            Close
-          </button>
-        </div>
-      )}
+      {message && <p style={{ textAlign: "center", color: message.includes("✅") ? "green" : "red" }}>{message}</p>}
     </>
   );
 }

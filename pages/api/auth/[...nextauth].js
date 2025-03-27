@@ -33,15 +33,15 @@ export default NextAuth({
                     throw new Error('Username or Password is incorrect!');
                 }
 
-                return { id: user._id, name: user.name, email: user.email };
+                return { id: user._id.toString(), name: user.name, email: user.email };
             },
         }),
     ],
 
     session: {
-        strategy: "jwt", // Using JWT-based session
-        maxAge: 365 * 24 * 60 * 60, // 1-year session duration
-        updateAge: 24 * 60 * 60, // Refresh session token every 24 hours
+        strategy: "jwt", 
+        maxAge: 365 * 24 * 60 * 60, 
+        updateAge: 24 * 60 * 60, 
     },
 
     callbacks: {
@@ -66,7 +66,7 @@ export default NextAuth({
 
         async jwt({ token, user }) {
             if (user) {
-                token.id = user.id;
+                token.id = user.id || user._id.toString();
             }
             return token;
         },
