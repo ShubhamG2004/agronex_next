@@ -7,83 +7,130 @@ import { Users } from '@/model/Schema';
 import { compare } from 'bcryptjs';
 
 export default NextAuth({
-    providers: [
-        GoogleProvider({
-            clientId: process.env.GOOGLE_CLIENT_ID,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        }),
-        GitHubProvider({
-            clientId: process.env.GITHUB_ID,
-            clientSecret: process.env.GITHUB_SECRET,
-        }),
-        CredentialsProvider({
-            name: 'Credentials',
-            async authorize(credentials) {
-                await connectMongo();
+  providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
+    GitHubProvider({
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET,
+    }),
+    CredentialsProvider({
+      id: 'credentials',
+      name: 'Credentials',
+      credentials: {
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" }
+      },
+      async authorize(credentials, req) {
+        try {
+          await connectMongo();
 
-                // Check if user exists
-                const user = await Users.findOne({ email: credentials.email });
-                if (!user) {
-                    throw new Error('No user found! Please Sign Up!');
-                }
+          // Check if user exists
+          const user = await Users.findOne({ email: credentials.email });
+          if (!user) {
+            throw new Error('No user found with this email address');
+          }
 
-                // Compare password
-                const isValidPassword = await compare(credentials.password, user.password);
-                if (!isValidPassword) {
-                    throw new Error('Username or Password is incorrect!');
-                }
+          // Check if user has password (OAuth users might not have one)
+          if (!user.password) {
+            throw new Error('Please sign in with the provider you used to register');
+          }
 
-                return { id: user._id.toString(), name: user.name, email: user.email };
-            },
-        }),
-    ],
+          // Compare password
+          const isValidPassword = await compare(credentials.password, user.password);
+          if (!isValidPassword) {
+            throw new Error('Incorrect password');
+          }
 
-    session: {
-        strategy: "jwt", 
-        maxAge: 365 * 24 * 60 * 60, 
-        updateAge: 24 * 60 * 60, 
+          return {
+            id: user._id.toString(),
+            name: user.name,
+            email: user.email,
+            image: user.image
+          };
+        } catch (error) {
+          console.error('Authorization error:', error.message);
+          throw new Error('Authentication failed');
+        }
+      },
+    }),
+  ],
+
+  session: {
+    strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+    updateAge: 24 * 60 * 60, // 24 hours
+  },
+
+  callbacks: {
+    async signIn({ user, account, profile }) {
+      try {
+        await connectMongo();
+
+        if (account.provider === 'google' || account.provider === 'github') {
+          const existingUser = await Users.findOne({ email: user.email });
+
+          if (!existingUser) {
+            const newUser = new Users({
+              name: user.name || profile?.name,
+              email: user.email,
+              image: user.image || profile?.picture,
+              provider: account.provider,
+              verified: true // Mark OAuth users as verified
+            });
+            await newUser.save();
+          } else if (!existingUser.provider) {
+            // Update existing user with provider info if missing
+            existingUser.provider = account.provider;
+            existingUser.image = existingUser.image || user.image || profile?.picture;
+            await existingUser.save();
+          }
+        }
+        return true;
+      } catch (error) {
+        console.error('SignIn error:', error);
+        return false;
+      }
     },
 
-    callbacks: {
-        async signIn({ user, account }) {
-            await connectMongo();
-
-            if (account.provider === 'google' || account.provider === 'github') {
-                const existingUser = await Users.findOne({ email: user.email });
-
-                if (!existingUser) {
-                    const newUser = new Users({
-                        name: user.name,
-                        email: user.email,
-                        image: user.image,
-                        provider: account.provider,
-                    });
-                    await newUser.save();
-                }
-            }
-            return true;
-        },
-
-        async jwt({ token, user }) {
-            if (user) {
-                token.id = user.id || user._id.toString();
-            }
-            return token;
-        },
-
-        async session({ session, token }) {
-            if (session.user) {
-                session.user.id = token.id;
-            }
-            return session;
-        },
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.provider = user.provider;
+      }
+      return token;
     },
 
-    secret: process.env.NEXTAUTH_SECRET,
-
-    pages: {
-        signIn: '/login', 
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.id = token.id;
+        session.user.provider = token.provider;
+      }
+      return session;
     },
+  },
 
-    debug: process.env.NODE_ENV === 'development', 
+  secret: process.env.NEXTAUTH_SECRET,
+
+  pages: {
+    signIn: '/login',
+    error: '/login', 
+  },
+
+  debug: process.env.NODE_ENV === 'development',
+  
+  // Security settings
+  cookies: {
+    sessionToken: {
+      name: `next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: process.env.NODE_ENV === 'production',
+      },
+    },
+  },
 });

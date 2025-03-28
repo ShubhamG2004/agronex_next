@@ -18,7 +18,7 @@ export default async function handler(req, res) {
         .populate("userId", "fullName image") 
         .exec();
 
-      console.log("Fetched Blogs:", blogs);
+      // console.log("Fetched Blogs:", blogs);
 
       if (!blogs || blogs.length === 0) {
         return res.status(404).json({ message: "No blogs found" });
