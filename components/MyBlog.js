@@ -1,11 +1,13 @@
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
 export default function MyBlogsPage() {
     const { data: session, status } = useSession();
     const [blogs, setBlogs] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const router = useRouter();
 
     useEffect(() => {
         if (status === "loading") return;
@@ -46,8 +48,11 @@ export default function MyBlogsPage() {
             ) : (
                 <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {blogs.map((blog) => (
-                        <div key={blog._id} className="bg-white shadow-md rounded-lg h-[400px] flex flex-col">
-                            {/* Image Container with padding */}
+                        <div 
+                            key={blog._id} 
+                            className="bg-white shadow-md rounded-lg h-[400px] flex flex-col cursor-pointer hover:shadow-lg transition"
+                            onClick={() => router.push(`/blogs/${blog._id}`)}
+                        >
                             <div className="h-[200px] w-full p-2">
                                 <img
                                     src={blog.imageUrl || "/default-image.jpg"} 
@@ -55,8 +60,6 @@ export default function MyBlogsPage() {
                                     className="w-full h-full object-cover rounded-lg"
                                 />
                             </div>
-
-                            {/* Text Content */}
                             <div className="p-3 flex-1 flex flex-col justify-between">
                                 <h2 className="text-lg font-semibold text-gray-800 overflow-hidden line-clamp-3">
                                     {blog.title}

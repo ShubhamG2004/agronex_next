@@ -15,7 +15,7 @@ export default async function handler(req, res) {
       console.log("Fetching blogs...");
 
       const blogs = await Blog.find({})
-        .populate("userId", "fullName image") // Fetch user details from Profile
+        .populate("userId", "fullName image") 
         .exec();
 
       console.log("Fetched Blogs:", blogs);
