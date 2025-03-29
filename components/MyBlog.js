@@ -7,6 +7,7 @@ export default function MyBlogsPage() {
     const [blogs, setBlogs] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [showAll, setShowAll] = useState(false);
     const router = useRouter();
 
     useEffect(() => {
@@ -20,7 +21,11 @@ export default function MyBlogsPage() {
 
                 const data = await res.json();
                 if (data.blogs.length > 0) {
-                    setBlogs(data.blogs);
+                    // Sort blogs by date (newest first)
+                    const sortedBlogs = data.blogs.sort((a, b) => 
+                        new Date(b.createdAt) - new Date(a.createdAt)
+                    );
+                    setBlogs(sortedBlogs);
                 } else {
                     setError("No blogs found.");
                 }
@@ -40,37 +45,63 @@ export default function MyBlogsPage() {
     if (loading) return <p className="text-center text-gray-600">Loading...</p>;
     if (error) return <p className="text-center text-gray-600">{error}</p>;
 
+    // Get the blogs to display (either first 4 or all)
+    const displayedBlogs = showAll ? blogs : blogs.slice(0, 4);
+
     return (
-        <div className="container mx-auto px-4 py-8">
-            <h1 className="text-3xl font-bold text-center">My Blogs</h1>
+        <div className="container mx-auto px-4 py-8 max-w-6xl">
             {blogs.length === 0 ? (
-                <p className="text-center text-gray-600 mt-4">You haven't written any blogs yet.</p>
-            ) : (
-                <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {blogs.map((blog) => (
-                        <div 
-                            key={blog._id} 
-                            className="bg-white shadow-md rounded-lg h-[400px] flex flex-col cursor-pointer hover:shadow-lg transition"
-                            onClick={() => router.push(`/blogs/${blog._id}`)}
-                        >
-                            <div className="h-[200px] w-full p-2">
-                                <img
-                                    src={blog.imageUrl || "/default-image.jpg"} 
-                                    alt={blog.title} 
-                                    className="w-full h-full object-cover rounded-lg"
-                                />
-                            </div>
-                            <div className="p-3 flex-1 flex flex-col justify-between">
-                                <h2 className="text-lg font-semibold text-gray-800 overflow-hidden line-clamp-3">
-                                    {blog.title}
-                                </h2>
-                                <p className="text-sm text-gray-600 mt-1 overflow-hidden line-clamp-5">
-                                    {blog.description}
-                                </p>
-                            </div>
-                        </div>
-                    ))}
+                <div className="text-center">
+                    <p className="text-gray-600 mb-4">You haven't written any blogs yet.</p>
+                    <button 
+                        onClick={() => router.push('/blogs/create')}
+                        className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+                    >
+                        Create Your First Blog
+                    </button>
                 </div>
+            ) : (
+                <>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {displayedBlogs.map((blog) => (
+                            <div 
+                                key={blog._id} 
+                                className="bg-white shadow-md rounded-lg overflow-hidden flex flex-col cursor-pointer hover:shadow-lg transition"
+                                onClick={() => router.push(`/blogs/${blog._id}`)}
+                            >
+                                <div className="h-48 w-full">
+                                    <img
+                                        src={blog.imageUrl || "/default-image.jpg"} 
+                                        alt={blog.title} 
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
+                                <div className="p-4 flex-1 flex flex-col">
+                                    <h2 className="text-xl font-semibold text-gray-800 mb-2 line-clamp-2">
+                                        {blog.title}
+                                    </h2>
+                                    <p className="text-gray-600 mb-4 line-clamp-3">
+                                        {blog.description}
+                                    </p>
+                                    <div className="mt-auto text-sm text-gray-500">
+                                        {new Date(blog.createdAt).toLocaleDateString()}
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    {blogs.length > 4 && (
+                        <div className="text-center mt-8">
+                            <button
+                                onClick={() => setShowAll(!showAll)}
+                                className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition"
+                            >
+                                {showAll ? 'Show Less' : 'View More Blogs'}
+                            </button>
+                        </div>
+                    )}
+                </>
             )}
         </div>
     );

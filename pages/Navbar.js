@@ -46,7 +46,7 @@ export default function Navbar() {
           </li>
           <li>
             {!isLoggedIn ? (
-              <Link href="/profile" className="block text-white hover:underline py-2 md:py-0">
+              <Link href="/ProfileSection" className="block text-white hover:underline py-2 md:py-0">
                 Profile
               </Link>
             ) : (

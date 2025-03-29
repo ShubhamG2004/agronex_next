@@ -12,6 +12,7 @@ const ProfileSchema = new mongoose.Schema({
     twitter: String,
     linkedin: String,
     github: String,
+    instagram: { type: String, default: "" } 
   },
   blogs: [{ type: mongoose.Schema.Types.ObjectId, ref: "Blog" }]
 });

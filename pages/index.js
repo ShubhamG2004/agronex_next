@@ -123,8 +123,8 @@ function Guest() {
 function Authuser({ session, handleSignOut }) {
   return (
     <main className="container mx-auto text-center py-20">
-      <h1 className="text-3xl font-bold underline">Welcome User</h1>
-      <div className="details">
+      {/* <h1 className="text-3xl font-bold underline">Welcome User</h1> */}
+      {/* <div className="details">
         <h5>{session.user.name}</h5>
         <h5>{session.user.email}</h5>
       </div>
@@ -140,7 +140,7 @@ function Authuser({ session, handleSignOut }) {
         <Link href="/profile" className="mt-5 px-10 py-1 rounded-sm bg-indigo-500 text-white">
           Profile
         </Link>
-      </div>
+      </div> */}
     </main>
   );
 }

@@ -44,7 +44,7 @@ export default async function handler(req, res) {
           bio: "",
           location: "",
           website: "",
-          socialLinks: { twitter: "", linkedin: "", github: "" },
+          socialLinks: { twitter: "", linkedin: "", github: "", instagram: "" },
         };
       }
 
@@ -61,7 +61,6 @@ export default async function handler(req, res) {
       }
 
       const { email, fullName, bio, location, website, socialLinks } = req.body;
-
       if (!email) return res.status(400).json({ message: "Email is required" });
 
       try {
@@ -69,8 +68,7 @@ export default async function handler(req, res) {
         if (!user) return res.status(404).json({ message: "User not found" });
 
         let profile = await Profile.findOne({ userId: user._id });
-
-        let imageUrl = profile?.image || user.image || ""; // Preserve existing image
+        let imageUrl = profile?.image || user.image || "";
 
         if (req.file) {
           try {
@@ -89,16 +87,23 @@ export default async function handler(req, res) {
           }
         }
 
+        const parsedSocialLinks = socialLinks ? JSON.parse(socialLinks) : {};
+
         profile = await Profile.findOneAndUpdate(
           { userId: user._id },
           {
-            fullName,
+            fullName: fullName || profile?.fullName || "",
             email,
-            image: imageUrl, // Always use the correct image URL
-            bio,
-            location,
-            website,
-            socialLinks: JSON.parse(socialLinks || "{}"),
+            image: imageUrl,
+            bio: bio || profile?.bio || "",
+            location: location || profile?.location || "",
+            website: website || profile?.website || "",
+            socialLinks: {
+              twitter: parsedSocialLinks.twitter || "",
+              linkedin: parsedSocialLinks.linkedin || "",
+              github: parsedSocialLinks.github || "",
+              instagram: parsedSocialLinks.instagram || "",
+            },
             userId: user._id,
           },
           { new: true, upsert: true }
