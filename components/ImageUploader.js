@@ -261,30 +261,33 @@ export default function ImageUploader() {
                 
                 {/* Diagnosis Card with improved layout */}
                 <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6 border border-green-200 shadow-sm">
-                  <div className="flex items-start">
-                    <div className="bg-green-100 p-3 rounded-lg mr-4">
-                      <FiCheckCircle className="h-6 w-6 text-green-600" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="font-bold text-xl text-green-800 mb-3">Diagnosis Summary</h3>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="bg-white p-4 rounded-lg border border-green-50">
-                          <p className="text-sm font-medium text-green-600 mb-1">Condition Identified</p>
-                          <p className="text-lg font-bold text-gray-800 capitalize">{prediction.class}</p>
-                        </div>
-                        <div className="bg-white p-4 rounded-lg border border-green-50">
-                          <p className="text-sm font-medium text-green-600 mb-1">Confidence Level</p>
-                          <p className="text-lg font-bold text-gray-800">
-                            {prediction.confidence ? `${prediction.confidence.toFixed(1)}%` : "N/A"}
-                            {prediction.confidence > 80 && (
-                              <span className="ml-2 text-xs px-2 py-1 bg-green-100 text-green-800 rounded-full">High Confidence</span>
-                            )}
-                          </p>
-                        </div>
+              <div className="flex items-start">
+                <div className="bg-green-100 p-3 rounded-lg mr-4">
+                  <FiCheckCircle className="h-6 w-6 text-green-600" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-bold text-xl text-green-800 mb-3">Diagnosis Summary</h3>
+                  <div className="space-y-2">
+                    <div className="bg-white p-4 rounded-lg border border-green-50">
+                      <p className="text-sm font-medium text-green-600 mb-1">Condition Identified</p>
+                      <p className="text-lg font-bold text-gray-800 capitalize">{prediction.class}</p>
+                      <div className="mt-2 flex items-center">
+                        <span className="text-sm font-medium text-green-600 mr-2">Confidence:</span>
+                        <span className="text-gray-800 font-semibold">
+                          {prediction.confidence ? `${prediction.confidence.toFixed(1)}%` : "N/A"}
+                        </span>
+                        {prediction.confidence > 80 && (
+                          <span className="ml-2 text-xs px-2 py-1 bg-green-100 text-green-800 rounded-full">
+                            High Confidence
+                          </span>
+                        )}
                       </div>
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+
                 
                 {/* Detailed Analysis Section */}
                 <div className="space-y-6">

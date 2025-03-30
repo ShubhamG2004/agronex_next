@@ -26,7 +26,7 @@ export default function MiddlePage() {
   }, []);
 
   return (
-    <div className="w-full flex flex-col md:flex-row items-center p-6 bg-green-800 gap-4">
+    <div className="w-full flex flex-col md:flex-row items-center pt-6 bg-green-800 gap-4">
       
       {/* Left Section - Features */}
       <div className="w-full md:w-1/2 p-6  rounded-lg ">
