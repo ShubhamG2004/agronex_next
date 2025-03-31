@@ -16,14 +16,35 @@
 
 🛠️ Tech Stack:
 
-https://github.com/user-attachments/assets/44863877-7706-42ab-be0f-a8c6ca8c8dcf
+
 
 
 🔹 Next.js – Seamless and responsive frontend experience.
  🔹 TensorFlow.js – AI-powered image processing for real-time disease detection.
  🔹 MongoDB – Efficient and scalable database management.
  🔹 NextAuth.js – Secure and seamless authentication, integrated with getServerSideProps for session handling.
+
+ https://github.com/user-attachments/assets/44863877-7706-42ab-be0f-a8c6ca8c8dcf
+
+  ✅ index.js 
+ ![Screenshot (854)](https://github.com/user-attachments/assets/bc59b77f-fd4b-416e-85ba-f671c18e5a05)
+
+  ✅ ImageUploder Page
+![Image-uploader](https://github.com/user-attachments/assets/fc283c57-5232-43f8-8d24-51d852ea79fa)
+
+  ✅ Blog Page
+  ![Blogs](https://github.com/user-attachments/assets/d6a695d9-3a4b-4fb2-93fb-ee66183e91bb)
+
+  ✅ Result 
+  ![stwaberry](https://github.com/user-attachments/assets/a4c45e9c-e1b8-44bc-a834-4062f9902694)
+  ![tomato](https://github.com/user-attachments/assets/26b000fa-8b06-4e5b-a7e3-49976354a108)
+
+
+  
+
  
- https://github.com/ShubhamG2004/agronex_next/blob/94a5053bf12bfc9c6f7bb123ad5a3c6147df05e1/AgroNex.mp4
+
+
+ 
 
 
