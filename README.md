@@ -19,3 +19,5 @@
  🔹 TensorFlow.js – AI-powered image processing for real-time disease detection.
  🔹 MongoDB – Efficient and scalable database management.
  🔹 NextAuth.js – Secure and seamless authentication, integrated with getServerSideProps for session handling.
+
+ https://github.com/ShubhamG2004/agronex_next/blob/94a5053bf12bfc9c6f7bb123ad5a3c6147df05e1/AgroNex.mp4
