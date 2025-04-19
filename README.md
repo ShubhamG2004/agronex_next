@@ -1,40 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+🔍 What is AgroNex?
+ AgroNex is a smart agricultural assistant that empowers farmers, researchers, and plant enthusiasts by providing instant AI-driven disease detection and a collaborative space for sharing 
+ agricultural knowledge.
 
-## Getting Started
+🚀 Key Features:
+ ✅ AI-Based Plant Disease Detection – Simply upload an image, and our AI will diagnose plant diseases with high accuracy.
+ ✅ Real-Time Insights – Get instant feedback on potential plant health issues to take timely action.
+ ✅ 50+ Plant Classes Covered – Supports disease detection for a wide range of plants, including wheat, rice, maize, tomato, potato, apple, grape, and more.
+ ✅ Blog & Knowledge Sharing – A dedicated space for exchanging best practices, farming techniques, and solutions.
+ ✅ User-Friendly Interface – Designed for ease of use by farmers, researchers, and gardening enthusiasts.
 
-First, run the development server:
+🔬 AI Model & Performance
+ 🖼️ Trained on 77,000+ images of plant diseases for precise identification.
+ 🎯 Covers 50+ plant classes, ensuring broad applicability across different crops.
+ 🎯 Achieved 86% accuracy, delivering reliable and effective predictions.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+🛠️ Tech Stack:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+🔹 Next.js – Seamless and responsive frontend experience.
+ 🔹 TensorFlow.js – AI-powered image processing for real-time disease detection.
+ 🔹 MongoDB – Efficient and scalable database management.
+ 🔹 NextAuth.js – Secure and seamless authentication, integrated with getServerSideProps for session handling.
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+ https://github.com/user-attachments/assets/44863877-7706-42ab-be0f-a8c6ca8c8dcf
 
-## Learn More
+  ✅ index.js 
+ ![Screenshot (854)](https://github.com/user-attachments/assets/bc59b77f-fd4b-416e-85ba-f671c18e5a05)
 
-To learn more about Next.js, take a look at the following resources:
+  ✅ ImageUploder Page
+![Image-uploader](https://github.com/user-attachments/assets/fc283c57-5232-43f8-8d24-51d852ea79fa)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+  ✅ Blog Page
+  ![Blogs](https://github.com/user-attachments/assets/d6a695d9-3a4b-4fb2-93fb-ee66183e91bb)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+  ✅ Result 
+  
+  ![stwaberry](https://github.com/user-attachments/assets/a4c45e9c-e1b8-44bc-a834-4062f9902694)
+  ![tomato](https://github.com/user-attachments/assets/26b000fa-8b06-4e5b-a7e3-49976354a108)
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+  
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+ 
+
+
+ 
+
+
