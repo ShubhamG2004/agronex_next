@@ -7,7 +7,7 @@ import MiddlePage from "@/components/MiddlePage";
 import ImageSlider from "./ImageSlider";
 import Footer from "./footer";
 
-// Lazy load components
+
 const Blogcom = dynamic(() => import("../components/Blogcom"), { 
   loading: () => <p>Loading blogs...</p>,
   ssr: false 
@@ -24,7 +24,7 @@ export default function Home() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowSplash(false);
-    }, 2000); // 2 seconds
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -35,7 +35,7 @@ export default function Home() {
         <img 
           src="/assets/logo.png" 
           alt="AgroNex Logo" 
-          className="w-64 h-64 animate-pulse" // You can adjust size and animation
+          className="w-64 h-64 animate-pulse"
         />
       </div>
     );
@@ -82,7 +82,7 @@ export default function Home() {
                 </button>
 
                 <button
-                  onClick={() => router.push("/Blog-uploader")}
+                  onClick={() => router.push("/BlogUploderpage")}
                   className="flex items-center gap-2 px-6 py-2 bg-blue-600 text-white font-bold rounded-md hover:bg-blue-700 transition-colors duration-300"
                 >
                   Create Blog

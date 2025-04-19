@@ -12,8 +12,8 @@ import {
   FiSun, 
   FiShield 
 } from "react-icons/fi";
-import { toPng } from 'html-to-image';
 
+import { toPng } from 'html-to-image';
 export default function ImageUploader() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null); 
