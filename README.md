@@ -1,7 +1,6 @@
 🔍 What is AgroNex?
- AgroNex is a smart agricultural assistant that empowers farmers, researchers, and plant enthusiasts by providing instant AI-driven disease detection and a collaborative space for sharing 
- agricultural knowledge.
-
+ AgroNex is a smart agricultural assistant that empowers farmers, researchers, and plant enthusiasts by providing instant AI-driven disease detection and a collaborative space for sharing agricultural knowledge.
+***************************************
 🚀 Key Features:
 
  ✅ AI-Based Plant Disease Detection – Simply upload an image, and our AI will diagnose plant diseases with high accuracy.
@@ -15,6 +14,7 @@
  ✅ User-Friendly Interface – Designed for ease of use by farmers, researchers, and gardening enthusiasts.
  
 
+********************************
 🔬 AI Model & Performance
  
  🖼️ Trained on 77,000+ images of plant diseases for precise identification.
@@ -23,7 +23,7 @@
  
  🎯 Achieved 86% accuracy, delivering reliable and effective predictions.
 
-
+*********************************************
 🛠️ Tech Stack:
 
 
