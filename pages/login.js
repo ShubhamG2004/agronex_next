@@ -44,19 +44,19 @@ export default function Login() {
         <div className="w-[95%] max-w-5xl bg-white shadow-xl rounded-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
           
           {/* Left Section */}
-          <div className="bg-green-600 text-white flex flex-col justify-center items-center p-10">
+         <div className="hidden md:flex bg-green-600 text-white flex-col justify-center items-center p-10">
             <h1 className="text-4xl font-bold mb-4">Welcome Back!</h1>
             <p className="text-lg text-center max-w-sm">
-              Login to access your dashboard and explore powerful features.
+                Login to access your dashboard and explore powerful features.
             </p>
             <Image
-              src="/assets/logo.png"
-              alt="Login Illustration"
-              width={250}
-              height={250}
-              className="mt-8"
+                src="/assets/logo.png"
+                alt="Login Illustration"
+                width={250}
+                height={250}
+                className="mt-8"
             />
-          </div>
+        </div>
 
           {/* Right Section */}
           <div className="p-10">
