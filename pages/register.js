@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { FaEye, FaEyeSlash, FaArrowLeft } from "react-icons/fa";
 import { useFormik } from 'formik';
 import { register_validate } from '../lib/validate';
+import Image from 'next/image';
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
@@ -59,16 +60,20 @@ export default function Register() {
         <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-xl overflow-hidden">
           <div className="md:flex">
             {/* Left Side - Branding */}
-            <div className="hidden md:block md:w-1/2 bg-gradient-to-br from-indigo-600 to-indigo-800 p-10 flex flex-col justify-center">
+            <div className="hidden md:block md:w-1/2 bg-gradient-to-br from-green-600 to-green-800 p-10 flex flex-col justify-center">
               <div className="text-white">
                 <h2 className="text-3xl font-bold mb-4">Join Us!</h2>
                 <p className="text-indigo-100 mb-8">
                   Create your account to unlock all features and start your journey with us.
                 </p>
                 <div className="flex items-center justify-center">
-                  <div className="bg-white/20 p-6 rounded-full">
-                    <div className="text-4xl">✨</div>
-                  </div>
+                  <Image
+                                  src="/assets/logo.png"
+                                  alt="Login Illustration"
+                                  width={250}
+                                  height={250}
+                                  className="mt-8"
+                              />
                 </div>
               </div>
             </div>
